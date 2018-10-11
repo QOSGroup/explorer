@@ -9,6 +9,9 @@
 ## Build Setup
 
 ```bash
+# Clone project
+git clone https://github.com/QOSGroup/explorer.git
+
 # Install dependencies
 npm install
 
