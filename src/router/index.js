@@ -13,6 +13,7 @@ import block from './block'
 import validtor from './validtor'
 import node from './node'
 import query from './query'
+import developer from './developer'
 
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -66,8 +67,11 @@ export const asyncRouterMap = [
   query
 ]
 
-export const wildrouter = {
-  path: '*',
-  redirect: '/404',
-  hidden: true
-}
+export const wildrouter = [
+  developer,
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
+]

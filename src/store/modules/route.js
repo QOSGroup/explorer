@@ -29,15 +29,15 @@ const route = {
  * @param roles
  */
 function filterAsyncRouter(routes) {
-  const res = []
+  let res = []
   routes.forEach(route => {
     const tmp = { ...route }
     const froute = asyncRouterMap.filter(x => x.name === tmp.route)
     if (froute.length > 0) {
       res.push(froute[0])
     }
-    res.push(wildrouter)
   })
+  res = res.concat(wildrouter)
   return res
 }
 

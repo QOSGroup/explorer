@@ -200,7 +200,7 @@ export default {
         }
         setTimeout(() => {
           this.fetchData()
-        }, 1000)
+        }, 2000)
       }).catch(() => {
         setTimeout(() => {
           this.fetchData()
