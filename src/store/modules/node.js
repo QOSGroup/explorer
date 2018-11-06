@@ -7,10 +7,16 @@ const node = {
   },
 
   mutations: {
+    /**
+     * 设置当前链信息
+     */
     SET_NODE_INFO: (state, payload) => {
       state.nodeInfo = payload
       Cookies.set('nodeInfo', state.nodeInfo)
     },
+    /**
+     * 缓存链信息
+     */
     SET_NODES: (state, payload) => {
       state.nodes = payload.nodes || []
     }
