@@ -2,11 +2,11 @@
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <h3 class="title">Sign In</h3>
-      <el-form-item prop="username">
+      <el-form-item prop="email">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="username" />
+        <el-input v-model="loginForm.email" name="email" type="text" auto-complete="on" placeholder="email" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
@@ -36,14 +36,16 @@
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+import { isvalidEmail } from '@/utils/validate'
+import { developerLogin } from '@/api/developer'
+import { setToken } from '@/utils/auth'
 
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
+    const validateEmail = (rule, value, callback) => {
+      if (!isvalidEmail(value)) {
+        callback(new Error('请输入正确的邮箱'))
       } else {
         callback()
       }
@@ -57,11 +59,11 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: 'admin'
+        email: '',
+        password: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        email: [{ required: true, trigger: 'blur', validator: validateEmail }],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
       loading: false,
@@ -86,20 +88,23 @@ export default {
       }
     },
     handleLogin() {
-      // this.$refs.loginForm.validate(valid => {
-      //   if (valid) {
-      //     this.loading = true
-      //     this.$store.dispatch('Login', this.loginForm).then(() => {
-      //       this.loading = false
-      //       this.$router.push({ path: this.redirect || '/' })
-      //     }).catch(() => {
-      //       this.loading = false
-      //     })
-      //   } else {
-      //     console.log('error submit!!')
-      //     return false
-      //   }
-      // })
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          developerLogin(this.loginForm).then((res) => {
+            this.loading = false
+            if (!res.err) {
+              setToken(res.result.token)
+              this.$router.push({ name: 'DeveloperManager' })
+            }
+          }).catch(() => {
+            this.loading = false
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
   }
 }

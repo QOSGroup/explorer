@@ -1,12 +1,12 @@
 <template>
   <div class="register-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="form" :model="form" :rules="registerRules" class="login-form" auto-complete="on" label-position="left">
       <h3 class="title">Sign Up</h3>
-      <el-form-item prop="username">
+      <el-form-item prop="email">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="email" />
+        <el-input v-model="form.email" name="email" type="text" auto-complete="on" placeholder="email" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
@@ -14,19 +14,20 @@
         </span>
         <el-input
           :type="pwdType"
-          v-model="loginForm.password"
+          v-model="form.password"
+          auto-complete="off"
           placeholder="password"
           name="password"/>
       </el-form-item>
-      <el-form-item prop="password">
+      <el-form-item prop="confirmpassword">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
         <el-input
           :type="pwdType"
-          v-model="loginForm.confirmpassword"
+          v-model="form.confirmpassword"
           name="confirmpassword"
-          auto-complete="on"
+          auto-complete="off"
           placeholder="confirm password"
           @keyup.enter.native="handleRegister" />
         <span class="show-pwd" @click="showPwd">
@@ -47,11 +48,12 @@
 
 <script>
 import { isvalidEmail } from '@/utils/validate'
+import { developerRegister } from '@/api/developer'
 
 export default {
   name: 'PRegister',
   data() {
-    const validateUsername = (rule, value, callback) => {
+    const validateemail = (rule, value, callback) => {
       if (!isvalidEmail(value)) {
         callback(new Error('请输入正确的邮箱'))
       } else {
@@ -65,15 +67,26 @@ export default {
         callback()
       }
     }
+
+    const validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.form.password) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
-      loginForm: {
-        username: '',
+      form: {
+        email: '',
         password: '',
         confirmpassword: ''
       },
-      loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+      registerRules: {
+        email: [{ required: true, trigger: 'blur', validator: validateemail }],
+        password: [{ required: true, trigger: 'blur', validator: validatePass }],
+        confirmpassword: [{ validator: validatePass2, trigger: 'blur' }]
       },
       loading: false,
       pwdType: 'password',
@@ -97,20 +110,20 @@ export default {
       }
     },
     handleRegister() {
-      // this.$refs.loginForm.validate(valid => {
-      //   if (valid) {
-      //     this.loading = true
-      //     this.$store.dispatch('Login', this.loginForm).then(() => {
-      //       this.loading = false
-      //       this.$router.push({ path: this.redirect || '/' })
-      //     }).catch(() => {
-      //       this.loading = false
-      //     })
-      //   } else {
-      //     console.log('error submit!!')
-      //     return false
-      //   }
-      // })
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.loading = true
+          developerRegister(this.form).then(() => {
+            this.loading = false
+            this.$router.push({ name: 'DeveloperLogin' })
+          }).catch(() => {
+            this.loading = false
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
   }
 }

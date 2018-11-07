@@ -4,6 +4,7 @@ import 'nprogress/nprogress.css'// Progress 进度条样式
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
+
   if (to.matched.some(res => res.meta.auth)) {
     // checkLogin({ token: store.getters.token }).then(data => {
     //   if (enums.apiStatus.success == data.status) {
@@ -12,6 +13,10 @@ router.beforeEach((to, from, next) => {
     //   }
     // });
 
+    if (from.fullPath === '/developer/login') {
+      NProgress.done()
+      return
+    }
     next({ path: '/developer/login' })
     return
   }

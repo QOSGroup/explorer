@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/validator'
+import { getList } from './validator'
 
 export default {
   components: {
