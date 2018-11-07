@@ -23,7 +23,8 @@ export function reqConsensusState() {
 
 export function reqAllValidators(oMsg) {
   return request({
-    url: `/${oMsg.network}/validators`,
+    // url: `/${oMsg.network}/validators`,
+    url: `/validators`,
     method: 'get'
   })
 }

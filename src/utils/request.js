@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
+import { getToken } from './auth'
 
 // 创建axios实例
 const service = axios.create({
@@ -11,6 +12,10 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
+    const token = getToken()
+    if (token) {
+      config.headers['QToken'] = token // 让每个请求携带自定义token 请根据实际情况自行修改
+    }
     if (config.url.indexOf('://') === -1) {
       config.url = store.getters.nodeInfo.baseUrl + config.url
     }

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { getNetInfo } from '@/api/net_info'
+import { getNetInfo } from './net_info'
 
 export default {
   components: {
