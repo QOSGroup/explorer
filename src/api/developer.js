@@ -52,6 +52,17 @@ export function getApps() {
 export function createApp(oMsg) {
   return request({
     url: process.env.BASE_API + '/apps',
-    method: 'post'
+    method: 'post',
+    data: oMsg
+  })
+}
+
+/**
+ * 检查token是否合法
+ */
+export function checkLogin() {
+  return request({
+    url: process.env.BASE_API + '/admin/login/check',
+    method: 'get'
   })
 }

@@ -93,7 +93,7 @@ export default {
           this.loading = true
           developerLogin(this.loginForm).then((res) => {
             this.loading = false
-            if (!res.err) {
+            if (!res.error) {
               setToken(res.result.token)
               this.$router.push({ name: 'DeveloperManager' })
             }
