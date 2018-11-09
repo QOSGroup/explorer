@@ -10,14 +10,15 @@
         <template slot-scope="props">
           <q-column :row="props.row" label="id" width="380px">
             <template slot-scope="p">
-              <router-link :to="{ name: 'NodeDetail', params: { nodeDetailId: props.row.node_info.id }}" class="primary">{{ props.row.node_info.id }}</router-link>
+              <router-link :to="{ name: 'NodeDetail', params: { nodeDetailId: props.row.id }}" class="primary">{{ props.row.id }}</router-link>
             </template>
           </q-column>
-          <q-column :value="props.row.node_info.moniker" label="moniker" width="100px"/>
-          <q-column :value="props.row.node_info.listen_addr" label="listen_addr" width="170px"/>
-          <q-column :value="props.row.node_info.network" label="network" width="100px"/>
-          <q-column :value="props.row.node_info.version" label="version" width="80px"/>
-          <q-column :value="props.row.connection_status.SendMonitor.Start" label="Time"/>
+          <q-column :value="props.row.moniker" label="moniker" width="100px"/>
+          <q-column :value="props.row.listen_addr" label="listen_addr" width="170px"/>
+          <q-column :value="props.row.network" label="network" width="100px"/>
+          <q-column :value="props.row.version" label="version" width="80px"/>
+          <q-column :value="props.row.send_start" label="send_start"/>
+          <q-column :value="props.row.recv_start" label="recv_start"/>
         </template>
       </q-table>
     </div>
