@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row class="mgb22">
-      <el-button type="primary" @click="dialogFormVisible = true">创建APP Key</el-button>
+      <el-button :disabled="getDeveloperStatus()" type="primary" @click="dialogFormVisible = true">创建APP Key</el-button>
       <a href="javascript:;" class="sign-out" @click="signout">Sign out</a>
     </el-row>
     <q-table
@@ -33,7 +33,7 @@
 
 <script>
 import { createApp, getApps } from '@/api/developer'
-import { removeToken } from '@/utils/auth'
+import { removeAllCookie, getDeveloperInfo } from '@/utils/auth'
 export default {
   name: 'PManager',
   components: {
@@ -70,8 +70,12 @@ export default {
       })
     },
     signout() {
-      removeToken()
+      removeAllCookie()
       this.$router.push('/')
+    },
+    getDeveloperStatus() {
+      const info = getDeveloperInfo()
+      return info.status === '0'
     }
   }
 }
