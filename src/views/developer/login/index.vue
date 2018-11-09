@@ -38,7 +38,7 @@
 <script>
 import { isvalidEmail } from '@/utils/validate'
 import { developerLogin } from '@/api/developer'
-import { setToken } from '@/utils/auth'
+import { setToken, setDeveloperInfo } from '@/utils/auth'
 
 export default {
   name: 'Login',
@@ -95,6 +95,7 @@ export default {
             this.loading = false
             if (!res.error) {
               setToken(res.result.token)
+              setDeveloperInfo(res.result)
               this.$router.push({ name: 'DeveloperManager' })
               this.loginForm.password = ''
               console.log(res)
