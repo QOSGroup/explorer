@@ -33,7 +33,11 @@ export default {
   },
   methods: {
     active() {
-      return this.$route.matched[0].path
+      let activePath = this.$route.matched[0].path
+      if (!activePath) {
+        activePath = '/dashboard'
+      }
+      return activePath
     }
   }
 }

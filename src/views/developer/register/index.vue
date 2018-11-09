@@ -116,6 +116,7 @@ export default {
           developerRegister(this.form).then(() => {
             this.loading = false
             this.$router.push({ name: 'DeveloperLogin' })
+            this.showMsgForActive()
           }).catch(() => {
             this.loading = false
           })
@@ -123,6 +124,13 @@ export default {
           console.log('error submit!!')
           return false
         }
+      })
+    },
+    showMsgForActive() {
+      this.$message({
+        showClose: true,
+        message: `请前往${this.form.email}激活您的开发者账号。`,
+        duration: 0
       })
     }
   }

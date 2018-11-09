@@ -2,6 +2,7 @@
   <div class="app-container">
     <el-row class="mgb22">
       <el-button type="primary" @click="dialogFormVisible = true">创建APP Key</el-button>
+      <a href="javascript:;" class="sign-out" @click="signout">Sign out</a>
     </el-row>
     <q-table
       v-loading="listLoading"
@@ -32,6 +33,7 @@
 
 <script>
 import { createApp, getApps } from '@/api/developer'
+import { removeToken } from '@/utils/auth'
 export default {
   name: 'PManager',
   components: {
@@ -66,13 +68,28 @@ export default {
         this.list = res.result || []
         this.listLoading = false
       })
+    },
+    signout() {
+      removeToken()
+      this.$router.push('/')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "src/styles/variables.scss";
 .mgb22 {
   margin-bottom: 22px;
+}
+.sign-out {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: block;
+  height: 20px;
+  color: $fontColor;
 }
 </style>

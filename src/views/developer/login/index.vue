@@ -96,6 +96,11 @@ export default {
             if (!res.error) {
               setToken(res.result.token)
               this.$router.push({ name: 'DeveloperManager' })
+              this.loginForm.password = ''
+              console.log(res)
+              if (res.result.status === '0') {
+                this.showMsgForActive()
+              }
             }
           }).catch(() => {
             this.loading = false
@@ -104,6 +109,13 @@ export default {
           console.log('error submit!!')
           return false
         }
+      })
+    },
+    showMsgForActive() {
+      this.$message({
+        showClose: true,
+        message: `请前往${this.loginForm.email}激活您的开发者账号。`,
+        duration: 0
       })
     }
   }
