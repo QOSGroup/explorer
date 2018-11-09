@@ -12,8 +12,8 @@
       element-loading-background="rgba(0, 0, 0, 0.8)"
     >
       <template slot-scope="props">
-        <q-column :value="props.row.block_id.hash" label="名称" width="360px"/>
-        <q-column :value="props.row.header.num_txs" label="key"/>
+        <q-column :value="props.row.name" label="名称" width="360px"/>
+        <q-column :value="props.row.secretKey" label="secretKey"/>
       </template>
     </q-table>
     <el-dialog :visible.sync="dialogFormVisible" title="创建APP key">
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { createApp } from '@/api/developer'
+import { createApp, getApps } from '@/api/developer'
 export default {
   name: 'PManager',
   components: {
@@ -45,16 +45,26 @@ export default {
         name: ''
       },
       formLabelWidth: '120px',
-      header: [{ name: '名称' }, { name: 'key' }],
+      header: [{ name: '名称' }, { name: 'secretKey' }],
       listLoading: true,
       list: []
     }
   },
+  created() {
+    this.getApps()
+  },
   methods: {
     createApp() {
       createApp(this.form).then(res => {
-        console.log(res)
         this.dialogFormVisible = false
+        this.getApps()
+      })
+    },
+    getApps() {
+      this.listLoading = true
+      getApps().then(res => {
+        this.list = res.result || []
+        this.listLoading = false
       })
     }
   }
