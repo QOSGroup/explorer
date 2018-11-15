@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getDetail(height) {
+export function getDetail(address) {
   return request({
-    url: '/block/' + height,
+    url: '/validators/' + address,
     method: 'get'
   })
 }

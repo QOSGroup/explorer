@@ -2,9 +2,8 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/blockchain',
+    url: '/txs',
     method: 'get',
     params
   })
 }
-

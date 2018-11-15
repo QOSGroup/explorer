@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/tendermint/validators',
+    url: '/validators',
     method: 'get',
     params
   })

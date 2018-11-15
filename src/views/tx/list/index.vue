@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div v-show="$route.name == 'BlockList'">
+    <div v-show="$route.name == 'TxList'">
       <el-form :inline="true" :model="form">
         <el-form-item label="开始高度" class="label-class" required prop="minHeight">
           <el-input v-model="form.minHeight" placeholder="开始高度" type="number"/>
@@ -21,14 +21,19 @@
         <template slot-scope="props">
           <q-column :row="props.row" label="height" width="100px">
             <template slot-scope="p">
-              <router-link :to="{ name: 'BlockDetail', params: { height: p.row.height }}" class="primary">
+              <router-link :to="{ name: 'TxDetail', params: { height: p.row.height, index:p.row.index }}" class="primary">
                 {{ p.row.height }}
               </router-link>
             </template>
           </q-column>
-          <q-column :value="props.row.num_txs" label="num_txs" width="100px"/>
-          <q-column :value="props.row.total_txs" label="total_txs" width="100px"/>
-          <q-column :value="props.row.validators_hash" label="Validators Hash" width="360px"/>
+          <q-column :value="props.row.index" label="index" width="70px"/>
+          <q-column :value="props.row.tx_type" label="tx_type" width="150px"/>
+          <q-column :value="props.row.maxgas" label="maxgas" width="80px"/>
+          <q-column :value="props.row.qcp_from" label="qcp_from" width="100px"/>
+          <q-column :value="props.row.qcp_to" label="qcp_to" width="100px"/>
+          <q-column :value="props.row.qcp_sequence" label="qcp_sequence" width="100px"/>
+          <q-column :value="props.row.qcp_txindex" label="qcp_txindex" width="100px"/>
+          <q-column :value="props.row.qcp_isresult" label="qcp_isresult" width="100px"/>
           <q-column :value="props.row.time" label="created_at"/>
         </template>
       </q-table>
@@ -58,7 +63,7 @@ export default {
     }
   },
   activated() {
-    if (this.$route.name === 'BlockList') {
+    if (this.$route.name === 'TxList') {
       this.fetchData()
     }
   },
@@ -67,7 +72,7 @@ export default {
       this.list = []
       this.listLoading = true
       const response = await getList(this.form)
-      this.list = response.result.blocks
+      this.list = response.result
       this.listLoading = false
     }
   }

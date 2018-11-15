@@ -21,9 +21,16 @@ export function reqConsensusState() {
   })
 }
 
-export function reqAllValidators(oMsg) {
+export function reqAllValidators() {
   return request({
-    url: `/${oMsg.network}/tendermint/validators`,
+    url: `/tendermint/validators`,
+    method: 'get'
+  })
+}
+
+export function reqSequences() {
+  return request({
+    url: `/sequence`,
     method: 'get'
   })
 }

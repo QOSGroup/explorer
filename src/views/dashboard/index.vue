@@ -109,6 +109,28 @@
         </div>
       </el-row>
     </el-card>
+
+    <el-card class="box-card">
+      <div slot="header" class="card-header">
+        <span>Squence</span>
+      </div>
+      <div class="app-container">
+        <q-table
+          v-loading="listLoading"
+          :data="sequences"
+          element-loading-text="拼命加载中"
+          element-loading-spinner="el-icon-loading"
+          element-loading-background="rgba(0, 0, 0, 0.8)">
+          <template slot-scope="props">
+            <q-column :value="props.row.name" label="name" width="100px"/>
+            <q-column :value="props.row.in" label="in"/>
+            <q-column :value="props.row.out" label="out"/>
+          </template>
+        </q-table>
+        <!-- </div> -->
+      </div>
+    </el-card>
+
     <el-card class="box-card">
       <div slot="header" class="card-header">
         <span>Connected To</span>
@@ -126,7 +148,7 @@
 <script>
 import '@/assets/font/iconfont.css'
 import {
-  reqConsensusState, reqStatus, reqBlockchain, reqAllValidators
+  reqConsensusState, reqStatus, reqBlockchain, reqAllValidators, reqSequences
 } from './api'
 import {
   mapGetters
@@ -137,6 +159,10 @@ import {
 } from '@/utils/tool'
 
 export default {
+  components: {
+    qTable: () => import('@/components/common/qtable.vue'),
+    qColumn: () => import('@/components/common/qcolumn.vue')
+  },
   filters: {
     formatDate
   },
@@ -164,7 +190,9 @@ export default {
       },
       prevoteState: {},
       precommitState: {},
-      st: null
+      sequences: [],
+      st: null,
+      listLoading: true
     }
   },
   computed: {
@@ -194,7 +222,7 @@ export default {
   methods: {
     async fetchData() {
       await this.getStatus()
-      Promise.all([this.getConsensusState(), this.getBlockchain(), this.getAllValidators()]).then(() => {
+      Promise.all([this.getConsensusState(), this.getBlockchain(), this.getAllValidators(), this.getSequences()]).then(() => {
         if (!this.fetch) {
           return
         }
@@ -237,6 +265,13 @@ export default {
       const response = await reqAllValidators({ network: this.networkNodeInfo.network })
       if (!response) return
       this.validator.totalNum = formatNumber(response.result.number)
+    },
+    async getSequences() {
+      const response = await reqSequences()
+      if (!response) return
+      this.sequences = response.result.apps
+      console.log(this.sequences)
+      this.listLoading = false
     },
     calcVoteData(bit_array) {
       const originStr = bit_array.split('}')[1]

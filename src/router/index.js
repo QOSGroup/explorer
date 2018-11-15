@@ -10,7 +10,8 @@ Vue.use(Router)
 import Layout from '../views/layout/Layout'
 
 import block from './block'
-import validtor from './validtor'
+import tx from './tx'
+import validator from './validator'
 import node from './node'
 import query from './query'
 import developer from './developer'
@@ -61,13 +62,19 @@ const router = new Router({
 export default router
 
 export const asyncRouterMap = [
-  block,
-  validtor,
-  node,
-  query
+  // block,
+  // tx,
+  // validator,
+  // node,
+  // query
 ]
 
 export const wildrouter = [
+  block,
+  tx,
+  validator,
+  node,
+  query,
   developer,
   {
     path: '*',

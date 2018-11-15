@@ -1,30 +1,46 @@
 <template>
-  <div class="app-container block-detail">
+  <div class="app-container tx-detail">
     <el-card class="box-card">
       <div slot="header" class="card-header">
-        <span>Block Message</span>
+        <span>Validator Message</span>
       </div>
       <el-row>
         <div class="row">
-          <div class="left label">chain_id</div>
+          <div class="left label">address</div>
           <div class="right label">
-            {{ block.chain_id }}
+            {{ validator.address }}
           </div>
         </div>
       </el-row>
       <el-row class="mt15">
         <div class="row">
-          <div class="left label">block_height</div>
+          <div class="left label">pub_key_type</div>
           <div class="right label">
-            {{ block.height }}
+            {{ validator.voting_power }}
           </div>
         </div>
       </el-row>
       <el-row class="mt15">
         <div class="row">
-          <div class="left label">time</div>
+          <div class="left label">pub_key</div>
           <div class="right label">
-            {{ block.time }}
+            {{ validator.accum }}
+          </div>
+        </div>
+      </el-row>
+      <el-row class="mt15">
+        <div class="row">
+          <div class="left label">first_block_height</div>
+          <div class="right label">
+            {{ validator.first_block_height }}
+          </div>
+        </div>
+      </el-row>
+      <el-row class="mt15">
+        <div class="row">
+          <div class="left label">first_block_time</div>
+          <div class="right label">
+            {{ validator.first_block_time }}
           </div>
         </div>
       </el-row>
@@ -32,52 +48,20 @@
 
     <el-card class="box-card">
       <div slot="header" class="card-header">
-        <span>Txs</span>
+        <span>Blocks</span>
       </div>
       <div class="app-container">
         <q-table
           v-loading="listLoading"
-          :data="txs"
+          :data="blocks"
           element-loading-text="拼命加载中"
           element-loading-spinner="el-icon-loading"
           element-loading-background="rgba(0, 0, 0, 0.8)">
           <template slot-scope="props">
-            <q-column :row="props.row" label="index" width="100px">
+            <q-column :row="props.row" label="height" width="100px">
               <template slot-scope="p">
-                <router-link :to="{ name: 'TxDetail', params: { height: block.height, index: p.row.index }}" class="primary">
-                  {{ p.row.index }}
-                </router-link>
-              </template>
-            </q-column>
-            <q-column :value="props.row.tx_type" label="tx_type" width="150px"/>
-            <q-column :value="props.row.maxgas" label="maxgas" width="80px"/>
-            <q-column :value="props.row.qcp_from" label="qcp_from" width="100px"/>
-            <q-column :value="props.row.qcp_to" label="qcp_to" width="100px"/>
-            <q-column :value="props.row.qcp_sequence" label="qcp_sequence" width="100px"/>
-            <q-column :value="props.row.qcp_txindex" label="qcp_txindex" width="100px"/>
-            <q-column :value="props.row.qcp_isresult" label="qcp_isresult" width="100px"/>
-            <q-column :value="props.row.time" label="time"/>
-          </template>
-        </q-table>
-      </div>
-    </el-card>
-
-    <el-card class="box-card">
-      <div slot="header" class="card-header">
-        <span>Validators</span>
-      </div>
-      <div class="app-container">
-        <q-table
-          v-loading="listLoading"
-          :data="validators"
-          element-loading-text="拼命加载中"
-          element-loading-spinner="el-icon-loading"
-          element-loading-background="rgba(0, 0, 0, 0.8)">
-          <template slot-scope="props">
-            <q-column :row="props.row" label="validator_address" width="370px">
-              <template slot-scope="p">
-                <router-link :to="{ name: 'ValidatorDetail', params: { address: p.row.validator_address }}" class="primary">
-                  {{ p.row.validator_address }}
+                <router-link :to="{ name: 'BlockDetail', params: { height: p.row.height }}" class="primary">
+                  {{ p.row.height }}
                 </router-link>
               </template>
             </q-column>
@@ -116,9 +100,8 @@ export default {
   },
   data() {
     return {
-      block: null,
-      txs: [],
-      validators: [],
+      validator: [],
+      blocks: [],
       listLoading: true
     }
   },
@@ -128,10 +111,11 @@ export default {
   methods: {
     async fetchData() {
       this.listLoading = true
-      const response = await getDetail(this.$route.params.height)
-      this.block = response.result.block
-      this.validators = response.result.validators
-      this.txs = response.result.txs
+      console.log(this.$route.params)
+      const response = await getDetail(this.$route.params.address)
+      this.validator = response.result.validator
+      this.blocks = response.result.blocks
+
       this.listLoading = false
     }
   }
@@ -142,7 +126,7 @@ export default {
 <style lang="scss" scoped>
   @import '@/styles/px2rem.scss';
 
-  .block-detail {
+  .tx-detail {
     .box-card {
       margin-top: 15px;
 
