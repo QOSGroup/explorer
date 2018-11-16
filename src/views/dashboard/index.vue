@@ -15,7 +15,7 @@
                 Network
               </div>
               <div class="bottom">
-                {{ networkNodeInfo.network }}
+                {{ consensus_state.chain_id }}
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
                 Validators
               </div>
               <div class="bottom">
-                {{ validator.validNum }} voting / {{ validator.totalNum }} total
+                {{ consensus_state.prevotes_num }} voting / {{ total_validators }} total
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
                 Prevote State
               </div>
               <div class="bottom line-height20">
-                <div>{{ prevoteState.percent }}%</div>
+                <div>{{ consensus_state.prevotes_value *100 }}%</div>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@
                 Precommit State
               </div>
               <div class="bottom line-height20">
-                <div>{{ precommitState.percent }}%</div>
+                <div>{{ consensus_state.precommits_value }}</div>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
                 Block Height
               </div>
               <div class="bottom">
-                {{ currentBlock.height }}
+                {{ consensus_state.height }}
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@
                 Block Time
               </div>
               <div class="bottom">
-                {{ currentBlock.time | formatDate }}
+                {{ consensus_state.start_time | formatDate }}
               </div>
             </div>
           </div>
@@ -101,9 +101,7 @@
               <div class="middle">
                 Last Block Hash
               </div>
-              <div class="bottom line-height20">
-                {{ currentBlock.lastCommitHash }}
-              </div>
+              <div class="bottom line-height20"/>
             </div>
           </div>
         </div>
@@ -148,13 +146,13 @@
 <script>
 import '@/assets/font/iconfont.css'
 import {
-  reqConsensusState, reqStatus, reqBlockchain, reqAllValidators, reqSequences
+  reqStatus, reqSequences
 } from './api'
 import {
   mapGetters
 } from 'vuex'
 import {
-  formatNumber,
+  // formatNumber,
   formatDate
 } from '@/utils/tool'
 
@@ -169,6 +167,8 @@ export default {
   data() {
     return {
       fetch: true,
+      consensus_state: {},
+      total_validators: 0,
       networkNodeInfo: {
         network: ''
       },
@@ -219,10 +219,10 @@ export default {
   beforeDestroy() {
     this.fetch = false
   },
+
   methods: {
     async fetchData() {
-      await this.getStatus()
-      Promise.all([this.getConsensusState(), this.getBlockchain(), this.getAllValidators(), this.getSequences()]).then(() => {
+      Promise.all([this.getStatus(), this.getSequences()]).then(() => {
         if (!this.fetch) {
           return
         }
@@ -235,36 +235,11 @@ export default {
         }, 5000)
       })
     },
-    async getConsensusState() {
-      const response = await reqConsensusState()
-      if (!response) return
-      const result = response.result
-      this.consensusState = result
-      this.validator.validNum = result.round_state['height_vote_set'][0].prevotes.length
-      this.prevoteState = this.calcVoteData(result.round_state['height_vote_set'][0].prevotes_bit_array)
-      this.precommitState = this.calcVoteData(result.round_state['height_vote_set'][0].precommits_bit_array)
-    },
     async getStatus() {
       const response = await reqStatus()
       if (!response) return
-      this.networkNodeInfo.network = response.result.node_info.network
-    },
-    async getBlockchain() {
-      const response = await reqBlockchain()
-      if (!response) return
-      const result = response.result
-      const blockMeta = result.block_metas[0]
-      this.currentBlock.height = formatNumber(result.last_height)
-      this.currentBlock.time = blockMeta.header.time
-      this.currentBlock.lastCommitHash = blockMeta.header.last_commit_hash
-      this.currentBlock.numTxs = formatNumber(blockMeta.header.num_txs)
-      this.currentBlock.totalTxs = formatNumber(blockMeta.header.total_txs)
-      this.currentBlock.validatorsHash = blockMeta.header.validators_hash
-    },
-    async getAllValidators() {
-      const response = await reqAllValidators({ network: this.networkNodeInfo.network })
-      if (!response) return
-      this.validator.totalNum = formatNumber(response.result.number)
+      this.consensus_state = response.result.consensus_state
+      this.total_validators = response.result.total_validators
     },
     async getSequences() {
       const response = await reqSequences()
