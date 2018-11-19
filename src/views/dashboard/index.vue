@@ -35,26 +35,26 @@
           <div class="pure-u-1-2 pure-u-md-1-4">
             <div class="area">
               <div class="top">
-                <i class="icon iconfont icon-Prevote" />
+                <i class="icon iconfont icon-xintubiao-" />
               </div>
               <div class="middle">
-                Prevote State
+                total_txs
               </div>
-              <div class="bottom line-height20">
-                <div>{{ consensus_state.prevotes_value *100 }}%</div>
+              <div class="bottom">
+                {{ total_txs }}
               </div>
             </div>
           </div>
           <div class="pure-u-1-2 pure-u-md-1-4">
             <div class="area">
               <div class="top">
-                <i class="icon iconfont icon-Precommit" />
+                <i class="icon iconfont icon-xintubiao-" />
               </div>
               <div class="middle">
-                Precommit State
+                genesis_time
               </div>
-              <div class="bottom line-height20">
-                <div>{{ consensus_state.precommits_value }}</div>
+              <div class="bottom">
+                {{ genesis_time }}
               </div>
             </div>
           </div>
@@ -93,15 +93,30 @@
               </div>
             </div>
           </div>
-          <div class="pure-u-1 pure-u-md-1-2">
+          <div class="pure-u-1-2 pure-u-md-1-4">
             <div class="area">
               <div class="top">
-                <i class="icon iconfont icon-hashtag" />
+                <i class="icon iconfont icon-Prevote" />
               </div>
               <div class="middle">
-                Last Block Hash
+                Prevote State
               </div>
-              <div class="bottom line-height20"/>
+              <div class="bottom line-height20">
+                <div>{{ consensus_state.prevotes_value *100 }}%</div>
+              </div>
+            </div>
+          </div>
+          <div class="pure-u-1-2 pure-u-md-1-4">
+            <div class="area">
+              <div class="top">
+                <i class="icon iconfont icon-Precommit" />
+              </div>
+              <div class="middle">
+                Precommit State
+              </div>
+              <div class="bottom line-height20">
+                <div>{{ consensus_state.precommits_value }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -169,27 +184,9 @@ export default {
       fetch: true,
       consensus_state: {},
       total_validators: 0,
-      networkNodeInfo: {
-        network: ''
-      },
+      total_txs: 0,
+      genesis_time: '',
       title: 'dashboard',
-      consensusState: {
-        round_state: {}
-      },
-      currentBlock: {
-        height: 0,
-        time: '',
-        lastCommitHash: '',
-        numTxs: 0,
-        totalTxs: 0,
-        validatorsHash: ''
-      },
-      validator: {
-        totalNum: 0,
-        validNum: 0
-      },
-      prevoteState: {},
-      precommitState: {},
       sequences: [],
       st: null,
       listLoading: true
@@ -240,6 +237,8 @@ export default {
       if (!response) return
       this.consensus_state = response.result.consensus_state
       this.total_validators = response.result.total_validators
+      this.total_txs = response.result.total_txs
+      this.genesis_time = response.result.genesis_time
     },
     async getSequences() {
       const response = await reqSequences()
