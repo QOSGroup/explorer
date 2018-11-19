@@ -13,7 +13,7 @@ import block from './block'
 import tx from './tx'
 import validator from './validator'
 import node from './node'
-import query from './query'
+import account from './account'
 import developer from './developer'
 
 /**
@@ -62,11 +62,6 @@ const router = new Router({
 export default router
 
 export const asyncRouterMap = [
-  // block,
-  // tx,
-  // validator,
-  // node,
-  // query
 ]
 
 export const wildrouter = [
@@ -74,7 +69,7 @@ export const wildrouter = [
   tx,
   validator,
   node,
-  query,
+  account,
   developer,
   {
     path: '*',

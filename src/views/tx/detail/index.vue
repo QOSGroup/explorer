@@ -141,7 +141,9 @@ export default {
   },
   data() {
     return {
-      tx: null,
+      tx: {
+        data: {}
+      },
       listLoading: true
     }
   },
