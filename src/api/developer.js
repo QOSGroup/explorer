@@ -66,3 +66,15 @@ export function checkLogin() {
     method: 'get'
   })
 }
+
+/**
+ * 发送短信验证码
+ * @param {object} oMsg 用户邮箱信息
+ */
+export function sendCode(oMsg) {
+  return request({
+    url: process.env.BASE_API + '/admin/sendcode',
+    method: 'post',
+    data: oMsg
+  })
+}
