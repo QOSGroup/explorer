@@ -8,6 +8,13 @@
         </span>
         <el-input v-model="form.email" name="email" type="text" auto-complete="on" placeholder="email" />
       </el-form-item>
+      <el-form-item prop="valideCode">
+        <span class="svg-container">
+          <svg-icon icon-class="shield" />
+        </span>
+        <el-input v-model="form.valideCode" name="valideCode" type="text" auto-complete="on" placeholder="valideCode" />
+        <el-button :loading="sendCodeLoading" type="primary" class="send-code" @click="sendCode">{{ sendCodeText }}</el-button>
+      </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
@@ -48,7 +55,7 @@
 
 <script>
 import { isvalidEmail } from '@/utils/validate'
-import { developerRegister } from '@/api/developer'
+import { developerRegister, sendCode } from '@/api/developer'
 
 export default {
   name: 'PRegister',
@@ -85,12 +92,16 @@ export default {
       },
       registerRules: {
         email: [{ required: true, trigger: 'blur', validator: validateemail }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }],
+        password: [
+          { required: true, trigger: 'blur', validator: validatePass }
+        ],
         confirmpassword: [{ validator: validatePass2, trigger: 'blur' }]
       },
       loading: false,
       pwdType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      sendCodeLoading: false,
+      sendCodeText: '发送验证码'
     }
   },
   watch: {
@@ -113,13 +124,15 @@ export default {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.loading = true
-          developerRegister(this.form).then(() => {
-            this.loading = false
-            this.$router.push({ name: 'DeveloperLogin' })
-            this.showMsgForActive()
-          }).catch(() => {
-            this.loading = false
-          })
+          developerRegister(this.form)
+            .then(() => {
+              this.loading = false
+              this.$router.push({ name: 'DeveloperLogin' })
+              // this.showMsgForActive()
+            })
+            .catch(() => {
+              this.loading = false
+            })
         } else {
           console.log('error submit!!')
           return false
@@ -132,14 +145,49 @@ export default {
         message: `请前往${this.form.email}激活您的开发者账号。`,
         duration: 0
       })
+    },
+    sendCode() {
+      if (this.sendCodeLoading) {
+        return
+      }
+      this.$refs.form.validateField('email', errmsg => {
+        if (errmsg) return
+        this.sendCodeRequest()
+        this.sendCodeLoading = !this.sendCodeLoading
+        const tmpText = this.sendCodeText
+        let i = 60
+        this.sendCodeText = `${i}秒后重发`
+        const it = setInterval(() => {
+          i--
+          this.sendCodeText = `${i}秒后重发`
+          if (i === 0) {
+            clearInterval(it)
+            this.sendCodeLoading = !this.sendCodeLoading
+            this.sendCodeText = tmpText
+          }
+        }, 1000)
+      })
+    },
+    sendCodeRequest() {
+      sendCode(this.form).then(() => {
+        this.loading = false
+        this.$message({
+          showClose: true,
+          message: `请前往邮箱${this.form.email}收取验证码。`,
+          duration: 0
+        })
+      })
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-$bg:#2d3a4b;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$light_gray: #eee;
 
 /* reset element-ui css */
 .register-container {
@@ -168,13 +216,12 @@ $light_gray:#eee;
     color: #454545;
   }
 }
-
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 .register-container {
   // position: fixed;
   height: 100%;
@@ -222,6 +269,16 @@ $light_gray:#eee;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  .send-code {
+    // width: 120px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 40px;
+    z-index: 2;
   }
 }
 </style>
