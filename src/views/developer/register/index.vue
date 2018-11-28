@@ -8,11 +8,11 @@
         </span>
         <el-input v-model="form.email" name="email" type="text" auto-complete="on" placeholder="email" />
       </el-form-item>
-      <el-form-item prop="valideCode">
+      <el-form-item prop="code">
         <span class="svg-container">
           <svg-icon icon-class="shield" />
         </span>
-        <el-input v-model="form.valideCode" name="valideCode" type="text" auto-complete="on" placeholder="valideCode" />
+        <el-input v-model="form.code" name="code" type="text" auto-complete="on" placeholder="code" />
         <el-button :loading="sendCodeLoading" type="primary" class="send-code" @click="sendCode">{{ sendCodeText }}</el-button>
       </el-form-item>
       <el-form-item prop="password">
