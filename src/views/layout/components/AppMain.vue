@@ -38,11 +38,8 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => {
         const app_cons = document.querySelectorAll('.app-main')
-        console.log(app_cons)
-        // console.log(app_cons[0].querySelector('#qfooter'))
         if (app_cons && app_cons.length > 0 && !app_cons[0].querySelector('#qfooter')) {
           const app_con = app_cons[0]
-          console.log(app_con)
           const footer = document.createElement('div')
           footer.id = 'qfooter'
           footer.style.fontSize = '12px'
