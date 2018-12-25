@@ -14,7 +14,7 @@
       </el-row>
       <el-row class="mt15">
         <div class="row">
-          <div class="left label">pub_key_type</div>
+          <div class="left label">voting_power</div>
           <div class="right label">
             {{ validator.voting_power }}
           </div>
@@ -22,7 +22,7 @@
       </el-row>
       <el-row class="mt15">
         <div class="row">
-          <div class="left label">pub_key</div>
+          <div class="left label">accum</div>
           <div class="right label">
             {{ validator.accum }}
           </div>
