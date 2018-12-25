@@ -3,7 +3,7 @@
  * 是否是email格式
  */
 export function isvalidEmail(str) {
-  const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+  const reg = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g
   return reg.test(str)
 }
 
