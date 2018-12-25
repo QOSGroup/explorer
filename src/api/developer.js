@@ -73,7 +73,7 @@ export function checkLogin() {
  */
 export function sendCode(oMsg) {
   return request({
-    url: process.env.BASE_API + '/admin/sendcode',
+    url: process.env.BASE_API + '/admin/sendCode',
     method: 'post',
     data: oMsg
   })

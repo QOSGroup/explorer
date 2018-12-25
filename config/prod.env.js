@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  BASE_API: '"http://api.qmoon.com"',
+  BASE_API: '"http://qmoonapi.qoschain.com"',
 }
