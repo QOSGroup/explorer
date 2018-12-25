@@ -262,7 +262,10 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "src/styles/variables.scss";
-
+  .dashboard-container{
+    padding-bottom: 50px;
+    min-height: 100%;
+  }
   .dashboard {
     &-container {
       margin: 15px;
