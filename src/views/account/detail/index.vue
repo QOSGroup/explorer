@@ -2,7 +2,7 @@
   <div class="app-container block-detail">
     <el-form :inline="true" :model="form">
       <el-form-item label="账户地址" class="label-class" required prop="address">
-        <el-input v-model="form.address" size="max" placeholder="账户地址" autofocus="true" type="string"/>
+        <el-input v-model="form.address" style="width:350px" size="max" placeholder="账户地址" autofocus="true" type="string"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="fetchData">查询</el-button>
