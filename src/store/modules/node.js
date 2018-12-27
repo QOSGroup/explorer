@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import { reqNodes } from '@/api/node'
+import { setCurrentNodeInfo, getCurrentNodeInfo } from '@/utils/auth'
 const node = {
   state: {
     nodes: [],
@@ -25,13 +26,22 @@ const node = {
   actions: {
     SetNodeInfo: ({ commit }, payload) => {
       return new Promise(resolve => {
+        setCurrentNodeInfo(payload)
         commit('SET_NODE_INFO', payload)
         resolve()
       })
     },
     SetNodes: ({ commit, dispatch }) => {
       return reqNodes().then(res => {
-        dispatch('SetNodeInfo', res.result.nodes[0]).then(() => {
+        let currentNodeInfo = getCurrentNodeInfo()
+        let needChangeNode = true
+        if (currentNodeInfo) {
+          needChangeNode = !res.result.nodes.some(x => x.name === currentNodeInfo.name)
+        }
+        if (needChangeNode) {
+          currentNodeInfo = res.result.nodes[0]
+        }
+        dispatch('SetNodeInfo', currentNodeInfo).then(() => {
           commit('SET_NODES', res.result)
           window.qBus.$emit('node-changed')
         })

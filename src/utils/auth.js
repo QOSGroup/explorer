@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 
 const TokenKey = 'Admin-Token'
 const DeveloperKey = 'Developer-Info'
+const CurrentNodeInfo = 'CurrentNodeInfo'
 
 export function getToken() {
   return Cookies.get(TokenKey)
@@ -13,6 +14,25 @@ export function setToken(token) {
 
 export function removeToken() {
   return Cookies.remove(TokenKey)
+}
+
+/**
+ * 记录当前选中节点信息
+ * @param {object} nodeInfo 节点信息
+ */
+export function setCurrentNodeInfo(nodeInfo) {
+  return Cookies.set(CurrentNodeInfo, nodeInfo)
+}
+
+export function removeCurrentNodeInfo() {
+  return Cookies.remove(CurrentNodeInfo)
+}
+
+/**
+ * 获取当前选中节点信息
+ */
+export function getCurrentNodeInfo() {
+  return Cookies.getJSON(CurrentNodeInfo)
 }
 
 /**
