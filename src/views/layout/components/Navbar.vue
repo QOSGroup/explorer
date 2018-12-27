@@ -44,6 +44,7 @@ export default {
       if (item.name === this.$store.getters.nodeInfo.name) {
         return
       }
+
       this.$store.dispatch('SetNodeInfo', item)
     }
   }
