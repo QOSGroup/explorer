@@ -36,10 +36,12 @@ const node = {
         let currentNodeInfo = getCurrentNodeInfo()
         let needChangeNode = true
         if (currentNodeInfo) {
-          needChangeNode = !res.result.nodes.some(x => x.name === currentNodeInfo.name)
+          needChangeNode = res.result.nodes.filter(x => x.name === currentNodeInfo.name)
         }
-        if (needChangeNode) {
+        if (needChangeNode.length === 0) {
           currentNodeInfo = res.result.nodes[0]
+        } else {
+          needChangeNode = needChangeNode[0]
         }
         dispatch('SetNodeInfo', currentNodeInfo).then(() => {
           commit('SET_NODES', res.result)
