@@ -165,7 +165,6 @@ export default {
   methods: {
     async fetchData() {
       this.listLoading = true
-      console.log(this.$route.params)
       const response = await getDetail(this.$route.params.address)
       this.validator = response.result.validator
       this.blocks = response.result.blocks

@@ -98,7 +98,6 @@ export default {
               setDeveloperInfo(res.result)
               this.$router.push({ name: 'DeveloperManager' })
               this.loginForm.password = ''
-              console.log(res)
               if (res.result.status === '0') {
                 this.showMsgForActive()
               }
