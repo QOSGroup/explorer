@@ -41,7 +41,7 @@ const node = {
         if (needChangeNode.length === 0) {
           currentNodeInfo = res.result.nodes[0]
         } else {
-          needChangeNode = needChangeNode[0]
+          currentNodeInfo = needChangeNode[0]
         }
         dispatch('SetNodeInfo', currentNodeInfo).then(() => {
           commit('SET_NODES', res.result)
