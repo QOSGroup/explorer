@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 import { reqNodes } from '@/api/node'
 import { setCurrentNodeInfo, getCurrentNodeInfo } from '@/utils/auth'
 const node = {
@@ -13,7 +13,7 @@ const node = {
      */
     SET_NODE_INFO: (state, payload) => {
       state.nodeInfo = payload
-      Cookies.set('nodeInfo', state.nodeInfo)
+      // Cookies.set('nodeInfo', state.nodeInfo)
     },
     /**
      * 缓存链信息
