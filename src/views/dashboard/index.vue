@@ -200,7 +200,6 @@ export default {
   watch: {
     nodeInfo: {
       handler(val, oldVal) {
-        console.log(val, oldVal)
         this.fetchData()
       },
       deep: true
@@ -244,7 +243,6 @@ export default {
       const response = await reqSequences()
       if (!response) return
       this.sequences = response.result.apps
-      console.log(this.sequences)
       this.listLoading = false
     },
     calcVoteData(bit_array) {

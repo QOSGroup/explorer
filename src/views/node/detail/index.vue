@@ -15,7 +15,6 @@ export default {
   activated() {
     this.fetchData()
     const detail = this.$store.getters.getNodeDetail(this.$route.params.nodeDetailId)
-    console.log(detail)
     if (!detail) {
       this.$router.replace({ name: 'Node' })
     }

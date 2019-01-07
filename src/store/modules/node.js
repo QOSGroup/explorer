@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 import { reqNodes } from '@/api/node'
 import { setCurrentNodeInfo, getCurrentNodeInfo } from '@/utils/auth'
 const node = {
@@ -13,7 +13,7 @@ const node = {
      */
     SET_NODE_INFO: (state, payload) => {
       state.nodeInfo = payload
-      Cookies.set('nodeInfo', state.nodeInfo)
+      // Cookies.set('nodeInfo', state.nodeInfo)
     },
     /**
      * 缓存链信息
@@ -41,7 +41,7 @@ const node = {
         if (needChangeNode.length === 0) {
           currentNodeInfo = res.result.nodes[0]
         } else {
-          needChangeNode = needChangeNode[0]
+          currentNodeInfo = needChangeNode[0]
         }
         dispatch('SetNodeInfo', currentNodeInfo).then(() => {
           commit('SET_NODES', res.result)
