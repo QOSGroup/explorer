@@ -8,17 +8,17 @@
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)">
         <template slot-scope="props">
-          <q-column :row="props.row" label="address" width="240px">
+          <q-column :row="props.row" label="name" width="80px">
             <template slot-scope="p">
               <router-link :to="{ name: 'ValidatorDetail', params: { address: p.row.address }}" class="primary">
-                {{ p.row.address }}
+                {{ p.row.name }}
               </router-link>
             </template>
           </q-column>
-          <q-column :value="props.row.voting_power" label="voting_power" width="80px"/>
-          <q-column :value="props.row.accum" label="accum" width="80px"/>
-          <q-column :value="props.row.first_block_height" label="first_block_height" width="80px"/>
-          <q-column :value="props.row.first_block_time" label="first_block_time" width="100px"/>
+          <q-column :value="props.row.address" label="address" width="240px"/>
+          <q-column :value="`${props.row.voting_power} (${props.row.percent}%)`" label="voting_power" width="100px"/>
+          <q-column :value="props.row.statusStr" label="status" width="80px"/>
+          <q-column :value="props.row.bondHeight" label="bondHeight" width="80px"/>
         </template>
       </q-table>
     </div>

@@ -37,7 +37,7 @@
           @click.native.prevent="getCoins"
         >领币</el-button>
       </el-form-item>
-      <div class="tips">每天限领一次，每次2000万个</div>
+      <div class="tips">每天限领一次，每次10万个</div>
     </el-form>
   </div>
 </template>

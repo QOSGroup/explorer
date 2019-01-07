@@ -6,6 +6,22 @@
       </div>
       <el-row>
         <div class="row">
+          <div class="left label">name</div>
+          <div class="right label">
+            {{ validator.name }}
+          </div>
+        </div>
+      </el-row>
+      <el-row>
+        <div class="row">
+          <div class="left label">owner</div>
+          <div class="right label">
+            {{ validator.owner }}
+          </div>
+        </div>
+      </el-row>
+      <el-row>
+        <div class="row">
           <div class="left label">address</div>
           <div class="right label">
             {{ validator.address }}
@@ -22,12 +38,22 @@
       </el-row>
       <el-row class="mt15">
         <div class="row">
-          <div class="left label">accum</div>
+          <div class="left label">status</div>
           <div class="right label">
-            {{ validator.accum }}
+            {{ validator.statusStr }}
           </div>
         </div>
       </el-row>
+
+      <el-row class="mt15">
+        <div class="row">
+          <div class="left label">bondHeight</div>
+          <div class="right label">
+            {{ validator.bondHeight }}
+          </div>
+        </div>
+      </el-row>
+
       <el-row class="mt15">
         <div class="row">
           <div class="left label">first_block_height</div>
@@ -44,6 +70,34 @@
           </div>
         </div>
       </el-row>
+
+      <el-row class="mt15">
+        <div class="row">
+          <div class="left label">inactiveCode</div>
+          <div class="right label">
+            {{ validator.inactiveCode }}
+          </div>
+        </div>
+      </el-row>
+
+      <el-row class="mt15">
+        <div class="row">
+          <div class="left label">inactiveTime</div>
+          <div class="right label">
+            {{ validator.inactiveTime }}
+          </div>
+        </div>
+      </el-row>
+
+      <el-row class="mt15">
+        <div class="row">
+          <div class="left label">inactiveHeight</div>
+          <div class="right label">
+            {{ validator.inactiveHeight }}
+          </div>
+        </div>
+      </el-row>
+
     </el-card>
 
     <el-card class="box-card">
