@@ -25,12 +25,13 @@
           </q-column>
           <q-column :value="props.row.index" label="index" width="70px"/>
           <q-column :value="props.row.tx_type" label="tx_type" width="150px"/>
-          <q-column :value="props.row.maxgas" label="maxgas" width="80px"/>
+          <!-- <q-column :value="props.row.maxgas" label="maxgas" width="80px"/> -->
           <q-column :value="props.row.qcp_from" label="qcp_from" width="100px"/>
           <q-column :value="props.row.qcp_to" label="qcp_to" width="100px"/>
           <q-column :value="props.row.qcp_sequence" label="qcp_sequence" width="100px"/>
           <q-column :value="props.row.qcp_txindex" label="qcp_txindex" width="100px"/>
-          <q-column :value="props.row.qcp_isresult" label="qcp_isresult" width="100px"/>
+          <q-column :value="props.row.qcp_isresult" label="qcp_isresult" width="80px"/>
+          <q-column :value="props.row.txStatus" label="tx_status" width="100px"/>
           <q-column :value="props.row.time" label="created_at"/>
         </template>
       </q-table>
