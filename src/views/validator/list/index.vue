@@ -17,6 +17,7 @@
           </q-column>
           <q-column :value="props.row.address" label="address" width="240px"/>
           <q-column :value="`${props.row.voting_power} (${props.row.percent}%)`" label="voting_power" width="100px"/>
+          <q-column :value="`${props.row.uptime}`" label="uptime" width="100px"/>
           <q-column :value="props.row.statusStr" label="status" width="80px"/>
           <q-column :value="props.row.bondHeight" label="bondHeight" width="80px"/>
         </template>

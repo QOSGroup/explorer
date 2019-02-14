@@ -38,6 +38,14 @@
       </el-row>
       <el-row class="mt15">
         <div class="row">
+          <div class="left label">uptime</div>
+          <div class="right label">
+            {{ validator.uptime }}
+          </div>
+        </div>
+      </el-row>
+      <el-row class="mt15">
+        <div class="row">
           <div class="left label">status</div>
           <div class="right label">
             {{ validator.statusStr }}
