@@ -4,14 +4,6 @@
       <div slot="header" class="card-header">
         <span>Block Message</span>
       </div>
-      <el-row>
-        <div class="row">
-          <div class="left label">chain_id</div>
-          <div class="right label">
-            {{ tx.chain_id }}
-          </div>
-        </div>
-      </el-row>
       <el-row class="mt15">
         <div class="row">
           <div class="left label">block_height</div>
@@ -43,6 +35,22 @@
       </div>
       <el-row>
         <div class="row">
+          <div class="left label">hash</div>
+          <div class="right label">
+            {{ tx.hash }}
+          </div>
+        </div>
+      </el-row>
+      <el-row>
+        <div class="row">
+          <div class="left label">tx_status</div>
+          <div class="right label">
+            {{ tx.tx_status }}
+          </div>
+        </div>
+      </el-row>
+      <el-row>
+        <div class="row">
           <div class="left label">tx_type</div>
           <div class="right label">
             {{ tx.tx_type }}
@@ -51,49 +59,17 @@
       </el-row>
       <el-row>
         <div class="row">
-          <div class="left label">maxgas</div>
+          <div class="left label">gas_wanted</div>
           <div class="right label">
-            {{ tx.maxgas }}
+            {{ tx.gas_wanted }}
           </div>
         </div>
       </el-row>
       <el-row>
         <div class="row">
-          <div class="left label">qcp_from</div>
+          <div class="left label">gas_used</div>
           <div class="right label">
-            {{ tx.qcp_from }}
-          </div>
-        </div>
-      </el-row>
-      <el-row>
-        <div class="row">
-          <div class="left label">qcp_to</div>
-          <div class="right label">
-            {{ tx.qcp_to }}
-          </div>
-        </div>
-      </el-row>
-      <el-row>
-        <div class="row">
-          <div class="left label">qcp_sequence</div>
-          <div class="right label">
-            {{ tx.qcp_sequence }}
-          </div>
-        </div>
-      </el-row>
-      <el-row>
-        <div class="row">
-          <div class="left label">qcp_txindex</div>
-          <div class="right label">
-            {{ tx.qcp_txindex }}
-          </div>
-        </div>
-      </el-row>
-      <el-row>
-        <div class="row">
-          <div class="left label">qcp_isresult</div>
-          <div class="right label">
-            {{ tx.qcp_isresult }}
+            {{ tx.gas_used }}
           </div>
         </div>
       </el-row>
@@ -104,17 +80,9 @@
       </div>
       <el-row>
         <div class="row">
-          <div class="left label">Type</div>
-          <div class="right label">
-            {{ tx.data.type }}
-          </div>
-        </div>
-      </el-row>
-      <el-row>
-        <div class="row">
           <div class="left label">Content</div>
           <div class="right label">
-            {{ tx.data.value }}
+            {{ tx.data }}
           </div>
         </div>
       </el-row>
@@ -153,7 +121,7 @@ export default {
   methods: {
     async fetchData() {
       this.listLoading = true
-      const response = await getDetail(this.$route.params.height, this.$route.params.index)
+      const response = await getDetail(this.$route.params.hash)
       this.tx = response.result
       this.listLoading = false
     }

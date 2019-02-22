@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getDetail(height, index) {
+export function getDetail(hash) {
   return request({
-    url: '/tx?height=' + height + '&index=' + index,
+    url: '/txs/' + hash,
     method: 'get'
   })
 }

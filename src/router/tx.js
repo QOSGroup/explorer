@@ -15,7 +15,7 @@ export default {
       meta: { title: 'List', icon: 'txs' },
       children: [
         {
-          path: 'detail/:height?',
+          path: 'detail/:hash?',
           name: 'TxDetail',
           hidden: true,
           component: () => import('@/views/tx/detail/index'),

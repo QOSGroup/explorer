@@ -19,22 +19,19 @@
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)">
         <template slot-scope="props">
-          <q-column :row="props.row" label="height" width="100px">
+          <q-column :row="props.row" label="hash" width="300px">
             <template slot-scope="p">
-              <router-link :to="{ name: 'TxDetail', params: { height: p.row.height, index:p.row.index }}" class="primary">
-                {{ p.row.height }}
+              <router-link :to="{ name: 'TxDetail', params: { hash: p.row.hash }}" class="primary">
+                {{ p.row.hash }}
               </router-link>
             </template>
           </q-column>
+          <q-column :value="props.row.height" label="height" width="100px"/>
           <q-column :value="props.row.index" label="index" width="70px"/>
           <q-column :value="props.row.tx_type" label="tx_type" width="150px"/>
-          <!-- <q-column :value="props.row.maxgas" label="maxgas" width="80px"/> -->
-          <q-column :value="props.row.qcp_from" label="qcp_from" width="100px"/>
-          <q-column :value="props.row.qcp_to" label="qcp_to" width="100px"/>
-          <q-column :value="props.row.qcp_sequence" label="qcp_sequence" width="100px"/>
-          <q-column :value="props.row.qcp_txindex" label="qcp_txindex" width="100px"/>
-          <q-column :value="props.row.qcp_isresult" label="qcp_isresult" width="100px"/>
-          <q-column :value="props.row.txStatus" label="tx_status" width="100px"/>
+          <q-column :value="props.row.gas_wanted" label="gas_wanted" width="80px"/>
+          <q-column :value="props.row.gas_used" label="gas_used" width="80px"/>
+          <q-column :value="props.row.tx_status" label="tx_status" width="100px"/>
           <q-column :value="props.row.time" label="created_at"/>
         </template>
       </q-table>
