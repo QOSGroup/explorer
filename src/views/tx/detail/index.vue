@@ -53,7 +53,7 @@
         <div class="row">
           <div class="left label">tx_type</div>
           <div class="right label">
-            {{ tx.tx_type }}
+            {{ tx.tx_type_cn }}
           </div>
         </div>
       </el-row>

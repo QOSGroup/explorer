@@ -8,29 +8,29 @@
         <el-button type="primary" @click="fetchData">查询</el-button>
       </el-form-item>
     </el-form>
-    <div v-show="account.address">
+    <div v-show="account.type">
       <el-card class="box-card">
         <div slot="header" class="card-header">
           <span>Account Message</span>
         </div>
         <el-row>
           <div class="row">
-            <div class="left label">address</div>
+            <div class="left label">type</div>
             <div class="right label">
-              {{ account.address }}
+              {{ account.type }}
             </div>
           </div>
         </el-row>
         <el-row>
           <div class="row">
-            <div class="left label">nonce</div>
+            <div class="left label">detail</div>
             <div class="right label">
-              {{ account.nonce }}
+              {{ account.value }}
             </div>
           </div>
         </el-row>
       </el-card>
-
+      <!--
       <el-card class="box-card">
         <div slot="header" class="card-header">
           <span>Coins</span>
@@ -43,7 +43,7 @@
             </template>
           </q-table>
         </div>
-      </el-card>
+      </el-card> -->
 
       <el-card class="box-card">
         <div slot="header" class="card-header">
@@ -52,21 +52,16 @@
         <div class="app-container">
           <q-table :data="txs">
             <template slot-scope="props">
-              <q-column :row="props.row" label="height" width="100px">
+              <q-column :row="props.row" label="hash" width="300px">
                 <template slot-scope="p">
-                  <router-link :to="{ name: 'TxDetail', params: { height: p.row.height, index:p.row.index }}" class="primary">
-                    {{ p.row.height }}
+                  <router-link :to="{ name: 'TxDetail', params: { hash: p.row.hash }}" class="primary">
+                    {{ p.row.hash }}
                   </router-link>
                 </template>
               </q-column>
+              <q-column :value="props.row.height" label="height" width="70px"/>
               <q-column :value="props.row.index" label="index" width="70px"/>
-              <q-column :value="props.row.tx_type" label="tx_type" width="150px"/>
-              <!-- <q-column :value="props.row.maxgas" label="maxgas" width="80px"/> -->
-              <q-column :value="props.row.qcp_from" label="qcp_from" width="100px"/>
-              <q-column :value="props.row.qcp_to" label="qcp_to" width="100px"/>
-              <q-column :value="props.row.qcp_sequence" label="qcp_sequence" width="100px"/>
-              <q-column :value="props.row.qcp_txindex" label="qcp_txindex" width="100px"/>
-              <q-column :value="props.row.qcp_isresult" label="qcp_isresult" width="100px"/>
+              <q-column :value="props.row.tx_type_cn" label="tx_type" width="150px"/>
               <q-column :value="props.row.txStatus" label="tx_status" width="100px"/>
               <q-column :value="props.row.time" label="created_at"/>
             </template>

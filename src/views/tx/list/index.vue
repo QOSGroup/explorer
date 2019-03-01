@@ -28,7 +28,7 @@
           </q-column>
           <q-column :value="props.row.height" label="height" width="100px"/>
           <q-column :value="props.row.index" label="index" width="70px"/>
-          <q-column :value="props.row.tx_type" label="tx_type" width="150px"/>
+          <q-column :value="props.row.tx_type_cn" label="tx_type" width="150px"/>
           <q-column :value="props.row.gas_wanted" label="gas_wanted" width="80px"/>
           <q-column :value="props.row.gas_used" label="gas_used" width="80px"/>
           <q-column :value="props.row.tx_status" label="tx_status" width="100px"/>
