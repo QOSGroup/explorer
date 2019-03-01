@@ -12,7 +12,7 @@ import Layout from '../views/layout/Layout'
 import block from './block'
 import tx from './tx'
 import validator from './validator'
-import node from './node'
+// import node from './node'
 import account from './account'
 import developer from './developer'
 import freecoin from './freecoin'
@@ -69,7 +69,7 @@ export const wildrouter = [
   block,
   tx,
   validator,
-  node,
+  // node,
   account,
   developer,
   freecoin,
