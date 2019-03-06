@@ -59,6 +59,14 @@
       </el-row>
       <el-row>
         <div class="row">
+          <div class="left label">fee</div>
+          <div class="right label">
+            {{ tx.fee }}
+          </div>
+        </div>
+      </el-row>
+      <el-row>
+        <div class="row">
           <div class="left label">gas_wanted</div>
           <div class="right label">
             {{ tx.gas_wanted }}
