@@ -2,7 +2,7 @@
   <div class="register-container">
     <el-form ref="form" :model="form" :rules="registerRules" class="login-form" auto-complete="on" label-position="left">
       <h3 class="title">Sign Up</h3>
-      <el-form-item prop="email">
+      <el-form-item prop="email" >
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
@@ -125,8 +125,13 @@ export default {
         if (valid) {
           this.loading = true
           developerRegister(this.form)
-            .then(() => {
+            .then((response) => {
               this.loading = false
+              if (response.error) {
+                this.$message.error(response.error.data)
+                return false
+              }
+
               this.$router.push({ name: 'DeveloperLogin' })
               // this.showMsgForActive()
             })
@@ -169,8 +174,13 @@ export default {
       })
     },
     sendCodeRequest() {
-      sendCode(this.form).then(() => {
+      sendCode(this.form).then((response) => {
         this.loading = false
+        if (response.error) {
+          this.$message.error(response.error.data)
+          return false
+        }
+
         this.$message({
           showClose: true,
           message: `请前往邮箱${this.form.email}收取验证码。`,
