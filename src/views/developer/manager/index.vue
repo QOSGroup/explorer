@@ -1,5 +1,9 @@
 <template>
   <div class="app-container">
+
+    <div>
+      相关接口和使用说明，详见接口文档 http://docs.qoschain.info/qmoon/
+    </div>
     <el-row class="mgb22">
       <el-button :disabled="getDeveloperStatus()" type="primary" @click="dialogFormVisible = true">创建APP Key</el-button>
       <a href="javascript:;" class="sign-out" @click="signout">Sign out</a>
@@ -47,7 +51,7 @@ export default {
         name: ''
       },
       formLabelWidth: '120px',
-      header: [{ name: '名称' }, { name: 'secretKey' }],
+      header: [{ name: '名称' }, { name: 'QToken' }],
       listLoading: true,
       list: []
     }

@@ -46,6 +46,15 @@ export default {
       }
 
       this.$store.dispatch('SetNodeInfo', item)
+
+      const params = this.$route.params
+      params['node'] = item.name
+      console.log(params)
+      this.$router.push({
+        path: this.$route.path,
+        name: this.$router.name,
+        query: params
+      })
     }
   }
 }
