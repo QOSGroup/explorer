@@ -105,7 +105,16 @@
           </div>
         </div>
       </el-row>
+    </el-card>
 
+    <el-card class="box-card">
+      <div slot="header" class="card-header">
+        <span>Voting Power Percent</span>
+      </div>
+
+      <div class="app-container">
+        <chart ref="charts" height="300%" width="100%"/>
+      </div>
     </el-card>
 
     <el-card class="box-card">
@@ -135,20 +144,23 @@
         </q-table>
       </div>
     </el-card>
-
   </div>
 </template>
 
 <script>
 import '@/assets/font/iconfont.css'
 import {
-  getDetail
-} from './api'
+  getValidatorDetail,
+  getValidatorVotingPowerPercents
+} from '@/api/validator'
+import Chart from '@/components/Charts/lineMarker'
+import echarts from 'echarts'
 
 export default {
   components: {
     qTable: () => import('@/components/common/qtable.vue'),
-    qColumn: () => import('@/components/common/qcolumn.vue')
+    qColumn: () => import('@/components/common/qcolumn.vue'),
+    Chart
   },
   filters: {
     statusFilter(status) {
@@ -173,15 +185,147 @@ export default {
   methods: {
     async fetchData() {
       this.listLoading = true
-      const response = await getDetail(this.$route.params.address)
+      const response = await getValidatorDetail(this.$route.params.address)
       this.validator = response.result.validator
       this.blocks = response.result.blocks
 
+      this.chartData = await this.initChart()
+      this.$refs.charts.initChart(this.chartData)
       this.listLoading = false
+    },
+    async initChart() {
+      var timestamp = Date.parse(new Date()) / 1000
+      var params = {
+        start: timestamp - 60 * 60 * 24 * 7,
+        end: timestamp,
+        step: 1
+      }
+
+      const response = await getValidatorVotingPowerPercents(this.$route.params.address, params)
+      const datas = response.result
+      var xx = []
+      var yy = []
+
+      datas.forEach(element => {
+        xx.push(element.x)
+        yy.push(element.y)
+      })
+
+      console.log('xx', xx)
+      console.log('yy', yy)
+
+      return {
+        backgroundColor: '#394056',
+        title: {
+          top: 20,
+          text: '',
+          textStyle: {
+            fontWeight: 'normal',
+            fontSize: 16,
+            color: '#F1F1F3'
+          },
+          left: '1%'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            lineStyle: {
+              color: '#57617B'
+            }
+          }
+        },
+        legend: {
+          top: 20,
+          icon: 'rect',
+          itemWidth: 14,
+          itemHeight: 5,
+          itemGap: 13,
+          data: [],
+          right: '4%',
+          textStyle: {
+            fontSize: 12,
+            color: '#F1F1F3'
+          }
+        },
+        grid: {
+          top: 100,
+          left: '2%',
+          right: '2%',
+          bottom: '2%',
+          containLabel: true
+        },
+        xAxis: [{
+          type: 'category',
+          boundaryGap: false,
+          axisLine: {
+            lineStyle: {
+              color: '#57617B'
+            }
+          },
+          data: xx
+        }],
+        yAxis: [{
+          type: 'value',
+          name: '(%)',
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#57617B'
+            }
+          },
+          axisLabel: {
+            margin: 10,
+            textStyle: {
+              fontSize: 14
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: '#57617B'
+            }
+          }
+        }],
+        series: [{
+          name: '',
+          type: 'line',
+          smooth: true,
+          symbol: 'circle',
+          symbolSize: 5,
+          showSymbol: false,
+          lineStyle: {
+            normal: {
+              width: 1
+            }
+          },
+          areaStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                offset: 0,
+                color: 'rgba(137, 189, 27, 0.3)'
+              }, {
+                offset: 0.8,
+                color: 'rgba(137, 189, 27, 0)'
+              }], false),
+              shadowColor: 'rgba(0, 0, 0, 0.1)',
+              shadowBlur: 10
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: 'rgb(137,189,27)',
+              borderColor: 'rgba(137,189,2,0.27)',
+              borderWidth: 12
+
+            }
+          },
+          data: yy
+        }]
+      }
     }
   }
 }
-
 </script>
 
 <style lang="scss" scoped>

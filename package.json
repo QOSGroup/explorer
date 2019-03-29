@@ -15,12 +15,14 @@
   },
   "dependencies": {
     "axios": "0.18.0",
+    "echarts": "^4.2.1",
     "element-ui": "2.4.6",
     "js-cookie": "2.2.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "purecss": "^1.0.0",
     "vue": "2.5.17",
+    "vue-echarts": "^4.0.1",
     "vue-router": "3.0.1",
     "vuex": "3.0.1"
   },
@@ -63,7 +65,7 @@
     "semver": "5.5.0",
     "shelljs": "0.8.2",
     "svg-sprite-loader": "3.8.0",
-    "svgo": "1.0.5",
+    "svgo": "^1.2.0",
     "uglifyjs-webpack-plugin": "1.2.7",
     "url-loader": "1.0.1",
     "vue-loader": "15.3.0",
@@ -72,7 +74,7 @@
     "webpack": "4.16.5",
     "webpack-bundle-analyzer": "2.13.1",
     "webpack-cli": "3.1.0",
-    "webpack-dev-server": "3.1.5",
+    "webpack-dev-server": "^3.2.1",
     "webpack-merge": "4.1.4"
   },
   "engines": {

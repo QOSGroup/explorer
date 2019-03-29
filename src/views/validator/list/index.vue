@@ -15,7 +15,14 @@
               </router-link>
             </template>
           </q-column>
-          <q-column :value="props.row.address" label="address" width="240px"/>
+          <q-column :row="props.row" label="address" width="80px">
+            <template slot-scope="p">
+              <router-link :to="{ name: 'ValidatorDetail', params: { address: p.row.address }}" class="primary">
+                {{ p.row.address }}
+              </router-link>
+            </template>
+          </q-column>
+          <!-- <q-column :value="props.row.address" label="address" width="240px"/> -->
           <q-column :value="`${props.row.voting_power} (${props.row.percent}%)`" label="voting_power" width="100px"/>
           <q-column :value="`${props.row.uptime}`" label="uptime" width="100px"/>
           <q-column :value="props.row.statusStr" label="status" width="80px"/>
@@ -29,8 +36,8 @@
 
 <script>
 import {
-  getList
-} from './api'
+  getValidators
+} from '@/api/validator'
 
 export default {
   components: {
@@ -56,7 +63,7 @@ export default {
     async fetchData() {
       this.list = []
       this.listLoading = true
-      const response = await getList(this.form)
+      const response = await getValidators(this.form)
       this.list = response.result
       this.listLoading = false
     }
@@ -72,5 +79,11 @@ export default {
     color: $blue;
     text-decoration: underline;
   }
+
+  .chart-container{
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 84px);
+}
 
 </style>
