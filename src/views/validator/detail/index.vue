@@ -179,6 +179,7 @@ import {
 } from '@/api/validator'
 import Chart from '@/components/Charts/lineMarker'
 import echarts from 'echarts'
+import { parseTime } from '@/utils/index'
 
 export default {
   components: {
@@ -206,6 +207,7 @@ export default {
   created() {
     this.fetchData()
   },
+
   methods: {
     async fetchData() {
       this.listLoading = true
@@ -220,9 +222,9 @@ export default {
     async initChart() {
       var timestamp = Date.parse(new Date()) / 1000
       var params = {
-        start: timestamp - 60 * 60 * 24 * 7,
+        start: timestamp - 60 * 60 * 24 * 30,
         end: timestamp,
-        step: 1
+        step: '1d'
       }
 
       const response = await getValidatorVotingPowerPercents(this.$route.params.address, params)
@@ -231,12 +233,9 @@ export default {
       var yy = []
 
       datas.forEach(element => {
-        xx.push(element.x)
+        xx.push(parseTime(new Date(element.x * 1000), '{y}-{m}-{d}'))
         yy.push(element.y)
       })
-
-      console.log('xx', xx)
-      console.log('yy', yy)
 
       return {
         backgroundColor: '#394056',
