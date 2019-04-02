@@ -14,6 +14,30 @@
       </el-row>
       <el-row>
         <div class="row">
+          <div class="left label">identity</div>
+          <div class="right label">
+            {{ validator.identity }}
+          </div>
+        </div>
+      </el-row>
+      <el-row>
+        <div class="row">
+          <div class="left label">website</div>
+          <div class="right label">
+            {{ validator.website }}
+          </div>
+        </div>
+      </el-row>
+      <el-row>
+        <div class="row">
+          <div class="left label">details</div>
+          <div class="right label">
+            {{ validator.details }}
+          </div>
+        </div>
+      </el-row>
+      <el-row>
+        <div class="row">
           <div class="left label">owner</div>
           <div class="right label">
             {{ validator.owner }}
