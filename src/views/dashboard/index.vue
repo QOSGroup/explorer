@@ -15,7 +15,7 @@
                 Network
               </div>
               <div class="bottom">
-                {{ consensus_state.chain_id }}
+                {{ status.consensus_state.chain_id }}
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
                 Validators
               </div>
               <div class="bottom">
-                {{ consensus_state.prevotes_num }} voting / {{ total_validators }} total
+                {{ status.consensus_state.prevotes_num }} voting / {{ status.total_validators }} total
               </div>
             </div>
           </div>
@@ -38,10 +38,10 @@
                 <i class="icon iconfont icon-xintubiao-" />
               </div>
               <div class="middle">
-                total_txs
+                Transactions
               </div>
               <div class="bottom">
-                {{ total_txs }}
+                {{ status.total_txs }}
               </div>
             </div>
           </div>
@@ -51,10 +51,10 @@
                 <i class="icon iconfont icon-xintubiao-" />
               </div>
               <div class="middle">
-                genesis_time
+                Avg Block Time
               </div>
               <div class="bottom">
-                {{ genesis_time }}
+                {{ status.blockTimeAvg }}
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
                 Block Height
               </div>
               <div class="bottom">
-                {{ consensus_state.height }}
+                {{ status.consensus_state.height }}
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@
                 Block Time
               </div>
               <div class="bottom">
-                {{ consensus_state.start_time | formatDate }}
+                {{ status.consensus_state.start_time | formatDate }}
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
                 Prevote State
               </div>
               <div class="bottom line-height20">
-                <div>{{ consensus_state.prevotes_value *100 }}%</div>
+                <div>{{ status.consensus_state.prevotes_value *100 }}%</div>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@
                 Precommit State
               </div>
               <div class="bottom line-height20">
-                <div>{{ consensus_state.precommits_value }}</div>
+                <div>{{ status.consensus_state.precommits_value }}</div>
               </div>
             </div>
           </div>
@@ -123,7 +123,7 @@
       </el-row>
     </el-card>
 
-    <el-card class="box-card">
+    <el-card v-if="nodeInfo.nodeType == 'QOS' || nodeInfo.nodeType == 'QSC'" class="box-card">
       <div slot="header" class="card-header">
         <span>Squence</span>
       </div>
@@ -182,11 +182,9 @@ export default {
   data() {
     return {
       fetch: true,
-      consensus_state: {},
-      total_validators: 0,
-      total_txs: 0,
-      genesis_time: '',
-      title: 'dashboard',
+      status: {
+        consensus_state: {}
+      },
       sequences: [],
       st: null,
       listLoading: true
@@ -234,10 +232,7 @@ export default {
     async getStatus() {
       const response = await reqStatus()
       if (!response) return
-      this.consensus_state = response.result.consensus_state
-      this.total_validators = response.result.total_validators
-      this.total_txs = response.result.total_txs
-      this.genesis_time = response.result.genesis_time
+      this.status = response.result
     },
     async getSequences() {
       const response = await reqSequences()
