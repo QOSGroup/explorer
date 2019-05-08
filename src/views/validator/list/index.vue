@@ -8,6 +8,12 @@
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)">
         <template slot-scope="props">
+          <q-column :row="props.row" label="logo" width="80px">
+            <template slot-scope="p">
+              <img v-if="p.row.logo" :src="p.row.logo" style="width: 80px; height: 40px;">
+            </template>
+          </q-column>
+          <q-column :value="`${props.row.identity}`" label="identity" width="100px"/>
           <q-column :value="`${props.row.name}`" label="name" width="100px"/>
           <q-column :row="props.row" label="address" width="80px">
             <template slot-scope="p">
