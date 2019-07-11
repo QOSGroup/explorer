@@ -33,16 +33,17 @@ const node = {
     },
     SetNodes: ({ commit, dispatch }) => {
       return reqNodes().then(res => {
-        let currentNodeInfo = getCurrentNodeInfo()
-        let needChangeNode = true
-        if (currentNodeInfo) {
-          needChangeNode = res.result.nodes.filter(x => x.name === currentNodeInfo.name)
-        }
+        let currentNodeInfo = getCurrentNodeInfo() || ''
+        let needChangeNode = []
+        // if (currentNodeInfo) {
+        needChangeNode = res.result.nodes.filter(x => x.name === currentNodeInfo.name)
+        // }
         if (needChangeNode.length === 0) {
           currentNodeInfo = res.result.nodes[0]
         } else {
           currentNodeInfo = needChangeNode[0]
         }
+        console.log(needChangeNode)
         dispatch('SetNodeInfo', currentNodeInfo).then(() => {
           commit('SET_NODES', res.result)
           window.qBus.$emit('node-changed')
