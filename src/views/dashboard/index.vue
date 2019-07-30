@@ -216,7 +216,12 @@ export default {
 
   methods: {
     async fetchData() {
-      Promise.all([this.getStatus(), this.getSequences()]).then(() => {
+      const reqArr = [this.getStatus()]
+      if (this.nodeInfo.nodeType === 'QOS' || this.nodeInfo.nodeType === 'QSC') {
+        reqArr.push(this.getSequences())
+      }
+
+      Promise.all(reqArr).then(() => {
         if (!this.fetch) {
           return
         }
