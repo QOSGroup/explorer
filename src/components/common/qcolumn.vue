@@ -1,5 +1,5 @@
 <template>
-  <td v-if="!isEmptyObj(row)" :data-column="label" :width="width">
+  <td v-if="!isEmptyObj(row) || !isEmptyValue(value)" :data-column="label" :width="width">
     <div class="tb">
       <div style="display:table-row">
         <div class="cell" >
@@ -11,6 +11,7 @@
   </td>
 </template>
 <script>
+import { isNotNormalValue } from '../../utils/tool'
 export default {
   props: {
     row: {
@@ -33,13 +34,14 @@ export default {
     }
   },
   mounted() {
-    console.log('this.row', this.row)
     this.$parent.$emit('settitle', { name: this.label })
   },
   methods: {
     isEmptyObj(obj) {
-      console.log('Object.keys(obj).length', Object.keys(obj).length)
       return Object.keys(obj).length === 0
+    },
+    isEmptyValue(val) {
+      return isNotNormalValue(val)
     }
   }
 }
