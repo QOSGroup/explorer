@@ -3,12 +3,16 @@
     <table class="responsive">
       <thead>
         <tr>
-          <th v-for="(item,index) in titles" :key="index" :class="item.className || ''">{{ item.name }}</th>
+          <th
+            v-for="(item,index) in titles"
+            :key="index"
+            :class="item.className || ''"
+          >{{ item.name }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,index) in newData" :key="index">
-          <slot :row="item"/>
+        <tr v-for="(item,index) in newData" v-show="!isEmptyObj(item)" :key="index">
+          <slot :row="item" />
         </tr>
       </tbody>
     </table>
@@ -16,6 +20,7 @@
   </div>
 </template>
 <script>
+import { isNotNormalValue } from '../../utils/tool'
 export default {
   props: {
     header: {
@@ -37,6 +42,11 @@ export default {
       newData: []
     }
   },
+  watch: {
+    data(val) {
+      this.newData = this.data
+    }
+  },
   created() {
     if (this.data.length === 0) {
       this.newData = [{}]
@@ -56,6 +66,13 @@ export default {
       if (!this.titles.some(x => x.name === oMsg.name)) {
         this.titles.push(oMsg)
       }
+    },
+    isEmptyObj(obj) {
+      return Object.keys(obj).length === 0
+    },
+    isEmptyValue(val) {
+      console.log('val', val)
+      return isNotNormalValue(val)
     }
   }
 }

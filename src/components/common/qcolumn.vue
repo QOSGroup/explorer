@@ -1,9 +1,9 @@
 <template>
-  <td v-if="!isEmptyObj(row) || !isEmptyValue(value)" :data-column="label" :width="width">
+  <td :data-column="label" :width="width">
     <div class="tb">
       <div style="display:table-row">
         <div class="cell" >
-          <span v-if="value">{{ value }}</span>
+          <span v-if="!isEmptyValue(value)">{{ value }}</span>
           <slot :row="row"/>
         </div>
       </div>
