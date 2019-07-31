@@ -1,8 +1,8 @@
 <template>
-  <td :data-column="label" :width="width">
+  <td v-if="!isEmptyObj(row)" :data-column="label" :width="width">
     <div class="tb">
       <div style="display:table-row">
-        <div class="cell">
+        <div class="cell" >
           <span v-if="value">{{ value }}</span>
           <slot :row="row"/>
         </div>
@@ -33,7 +33,14 @@ export default {
     }
   },
   mounted() {
+    console.log('this.row', this.row)
     this.$parent.$emit('settitle', { name: this.label })
+  },
+  methods: {
+    isEmptyObj(obj) {
+      console.log('Object.keys(obj).length', Object.keys(obj).length)
+      return Object.keys(obj).length === 0
+    }
   }
 }
 

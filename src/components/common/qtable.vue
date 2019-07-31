@@ -7,8 +7,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,index) in data" :key="index">
-          <slot :row="item" />
+        <tr v-for="(item,index) in newData" :key="index">
+          <slot :row="item"/>
         </tr>
       </tbody>
     </table>
@@ -33,10 +33,16 @@ export default {
   },
   data() {
     return {
-      titles: []
+      titles: [],
+      newData: []
     }
   },
   created() {
+    if (this.data.length === 0) {
+      this.newData = [{}]
+    } else {
+      this.newData = this.data
+    }
     if (this.header) {
       this.titles = this.header
     } else {
