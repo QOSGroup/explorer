@@ -3,7 +3,7 @@
     <div class="tb">
       <div style="display:table-row">
         <div class="cell" >
-          <span v-if="value">{{ value }}</span>
+          <span v-if="!isEmptyValue(value)">{{ value }}</span>
           <slot :row="row"/>
         </div>
       </div>
