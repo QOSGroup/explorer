@@ -116,7 +116,7 @@ export default {
   },
   data() {
     return {
-      block: null,
+      block: {},
       txs: [],
       validators: [],
       listLoading: true
