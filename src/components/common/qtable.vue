@@ -48,7 +48,7 @@ export default {
     }
   },
   created() {
-    if (this.data.length === 0) {
+    if (!this.data || this.data.length === 0) {
       this.newData = [{}]
     } else {
       this.newData = this.data

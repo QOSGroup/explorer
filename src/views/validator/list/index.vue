@@ -67,7 +67,6 @@ export default {
     if (this.$route.name === 'ValidatorList') {
       this.fetchData()
     }
-    console.log(this.nodeInfo)
   },
   methods: {
     async fetchData() {
