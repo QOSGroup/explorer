@@ -66,8 +66,8 @@ export default {
     async fetchData() {
       this.list = []
       this.listLoading = true
-      await getList(this.form)
-      // this.list = response.result.blocks
+      const response = await getList(this.form)
+      this.list = response.result.blocks
       this.listLoading = false
     }
   }
