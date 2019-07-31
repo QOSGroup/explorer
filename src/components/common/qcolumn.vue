@@ -1,5 +1,5 @@
 <template>
-  <td v-if="!isEmptyObj(row) || !isEmptyValue(value)" :data-column="label" :width="width">
+  <td :data-column="label" :width="width">
     <div class="tb">
       <div style="display:table-row">
         <div class="cell" >
