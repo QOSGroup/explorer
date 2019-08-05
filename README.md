@@ -11,6 +11,19 @@
 ## 接口信息
 
 
+# 环境要求
+```
+$ cnpm -v
+cnpm@6.0.0 (/usr/local/lib/node_modules/cnpm/lib/parse_argv.js)
+npm@6.7.0 (/usr/local/lib/node_modules/cnpm/node_modules/npm/lib/npm.js)
+node@10.16.0 (/usr/local/bin/node)
+npminstall@3.20.2 (/usr/local/lib/node_modules/cnpm/node_modules/npminstall/lib/index.js)
+prefix=/usr/local
+darwin x64 18.7.0
+registry=https://registry.npm.taobao.org
+
+```
+
 
 ## Build Setup
 
