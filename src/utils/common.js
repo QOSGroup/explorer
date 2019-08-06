@@ -46,9 +46,9 @@ export const formatJson = msg => {
   jsonStr = "";
   for (let i = 0; i < str.length; i++) {
       let text = str.charAt(i);
-      if (rep == text){
+      if (rep == text)
           jsonStr += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-      }else {
+      else {
           jsonStr += text;
       }
       if (i == str.length - 2)

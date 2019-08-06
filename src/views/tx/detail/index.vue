@@ -87,8 +87,8 @@
         <span>Tx Content</span>
       </div>
       <el-row>
-        <div class="row">
-          <div class="left label">Content</div>
+        <div class="row align_items_start">
+          <div class="left label height0">Content</div>
           <div class="right label" ref="txdata"></div>
         </div>
       </el-row>
@@ -158,9 +158,17 @@ export default {
       word-break: break-all;
     }
 
+    .height0{
+      min-height: 0;
+    }
+
+    .align_items_start{
+      align-items: flex-start;
+    }
+
     .row {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
 
       .left {
         width: 160px;
