@@ -27,32 +27,30 @@ export const getNodeDetail = (id) => {
 }
 
 /**
- * 
+ *
  * @param {格式化json} msg json字符串
  */
 export const formatJson = msg => {
-  const rep = "~";
-  let jsonStr = JSON.stringify(msg, null, rep), str = "";
+  const rep = '~'
+  let jsonStr = JSON.stringify(msg, null, rep)
+  let str = ''
   for (let i = 0; i < jsonStr.length; i++) {
-      let text2 = jsonStr.charAt(i)
-      if (i > 1) {
-          let text = jsonStr.charAt(i - 1)
-          if (rep != text && rep == text2) {
-              str += "<br/>"
-          }
+    const text2 = jsonStr.charAt(i)
+    if (i > 1) {
+      const text = jsonStr.charAt(i - 1)
+      if (rep !== text && rep === text2) {
+        str += '<br/>'
       }
-      str += text2;
+    }
+    str += text2
   }
-  jsonStr = "";
+  jsonStr = ''
   for (let i = 0; i < str.length; i++) {
-      let text = str.charAt(i);
-      if (rep == text)
-          jsonStr += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-      else {
-          jsonStr += text;
-      }
-      if (i == str.length - 2)
-          jsonStr += "<br/>"
+    const text = str.charAt(i)
+    if (rep === text) { jsonStr += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' } else {
+      jsonStr += text
+    }
+    if (i === str.length - 2) { jsonStr += '<br/>' }
   }
-  return jsonStr;
+  return jsonStr
 }
