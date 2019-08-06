@@ -89,9 +89,7 @@
       <el-row>
         <div class="row">
           <div class="left label">Content</div>
-          <div class="right label">
-            {{ tx.data }}
-          </div>
+          <div class="right label" ref="txdata"></div>
         </div>
       </el-row>
     </el-card>
@@ -100,6 +98,7 @@
 
 <script>
 import '@/assets/font/iconfont.css'
+import { formatJson } from '@/utils/common.js';
 import {
   getDetail
 } from './api'
@@ -131,7 +130,9 @@ export default {
       this.listLoading = true
       const response = await getDetail(this.$route.params.hash)
       this.tx = response.result
-      this.listLoading = false
+      this.tx.data = JSON.parse(JSON.stringify(this.tx.data));
+      this.$refs.txdata.innerHTML = formatJson(this.tx.data);
+      this.listLoading = false;
     }
   }
 }
@@ -159,7 +160,7 @@ export default {
 
     .row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
 
       .left {
         width: 160px;
