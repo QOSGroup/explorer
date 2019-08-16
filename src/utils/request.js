@@ -19,7 +19,7 @@ service.interceptors.request.use(
     if (config.url.indexOf('://') === -1) {
       if (!store.getters.nodeInfo.baseUrl) {
         // eslint-disable-next-line no-throw-literal
-        throw 'baseUrl 为空'
+        throw new axios.Cancel('cancel request')
       }
       config.url = store.getters.nodeInfo.baseUrl + config.url
     }
@@ -38,7 +38,10 @@ service.interceptors.response.use(
     return response.data
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log(error) // for debug
+    if (error.message === 'cancel request') {
+      return Promise.resolve(null)
+    }
     Message({
       message: error.message,
       type: 'error',
