@@ -163,7 +163,7 @@ export default {
     }
 
     .align_items_start{
-      align-items: flex-start;
+      align-items: flex-start!important;
     }
 
     .row {
