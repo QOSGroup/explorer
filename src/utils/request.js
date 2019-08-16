@@ -17,6 +17,10 @@ service.interceptors.request.use(
       config.headers['QToken'] = token // 让每个请求携带自定义token 请根据实际情况自行修改
     }
     if (config.url.indexOf('://') === -1) {
+      if (!store.getters.nodeInfo.baseUrl) {
+        // eslint-disable-next-line no-throw-literal
+        throw 'baseUrl 为空'
+      }
       config.url = store.getters.nodeInfo.baseUrl + config.url
     }
     return config
