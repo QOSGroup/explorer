@@ -10,7 +10,7 @@
         <template slot-scope="props">
           <q-column v-if="nodeInfo.nodeType === 'QOS'" :row="props.row" label="logo" width="80px">
             <template slot-scope="p">
-              <img v-if="p.row.logo" :src="p.row.logo" style="width: 80px; height: 40px;">
+              <img v-if="p.row.logo" :src="p.row.logo" style="height: 40px;">
             </template>
           </q-column>
           <q-column v-if="nodeInfo.nodeType === 'COSMOS'" :value="`${props.row.identity}`" label="identity" width="100px"/>
